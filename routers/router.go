@@ -8,7 +8,7 @@
 package routers
 
 import (
-	"dockerimagesmake/controllers"
+	"github.com/pengzhong2010/web-server-exec-linux-shell/controllers"
 
 	"github.com/astaxie/beego"
 )

@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "dockerimagesmake/routers"
+	_ "github.com/pengzhong2010/web-server-exec-linux-shell/routers"
 
 	"github.com/astaxie/beego"
 )

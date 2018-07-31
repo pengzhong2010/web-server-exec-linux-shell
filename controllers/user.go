@@ -2,11 +2,11 @@ package controllers
 
 import (
 	"bytes"
-	"dockerimagesmake/models"
 	_ "encoding/hex"
 	_ "encoding/json"
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/pengzhong2010/web-server-exec-linux-shell/models"
 	"log"
 	"math/rand"
 	"os/exec"
@@ -18,14 +18,20 @@ type UserController struct {
 	beego.Controller
 }
 
-func (u *UserController) Get() {
+func (u *UserController) Post() {
 	// fmt.Println("dd")
 	cmd_model := u.GetString("model")
 	if cmd_model == "" {
 		u.Ctx.WriteString("model is empty")
 		return
 	}
-	cmd := exec.Command("sh", "/data/githook/k8s-apply/apply.sh", ""+cmd_model+"")
+	cmd_args := u.GetString("args")
+	if cmd_args == "" {
+		u.Ctx.WriteString("args is empty")
+		return
+	}
+
+	cmd := exec.Command("sh", beego.AppConfig.String("execShellPath")+cmd_model+".sh", cmd_args)
 	var out bytes.Buffer
 
 	cmd.Stdout = &out
